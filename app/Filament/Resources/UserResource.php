@@ -82,7 +82,8 @@ class UserResource extends Resource
                     }),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()
+                    ->hidden(fn (User $user) => $user->hasRole('Admin')),
                 Tables\Actions\Action::make('Verify')
                     ->icon('heroicon-o-check-circle')
                     ->action(fn (User $user) => $user->markEmailAsVerified())
@@ -93,7 +94,7 @@ class UserResource extends Resource
                         $user->email_verified_at = null;
                         $user->save();
                     })
-                    ->hidden(fn (User $user) => !$user->hasVerifiedEmail()),
+                    ->hidden(fn (User $user) => $user->hasRole('Admin') or !$user->hasVerifiedEmail()),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
