@@ -65,7 +65,18 @@ class AdminPanelProvider extends PanelProvider
                 ->navigationSort(3)
                 ->navigationCountBadge(),
                 // ->resource(\App\Filament\Resources\CustomMediaResource::class)
-                FilamentSpatieLaravelBackupPlugin::make()
+                FilamentSpatieLaravelBackupPlugin::make(),
+                \Croustibat\FilamentJobsMonitor\FilamentJobsMonitorPlugin::make()
+                    ->label('Job')
+                    ->pluralLabel('Jobs')
+                    ->enableNavigation(true)
+                    ->navigationIcon('heroicon-o-cpu-chip')
+                    ->navigationGroup('Settings')
+                    ->navigationSort(5)
+                    ->navigationCountBadge(true)
+                    ->enablePruning(true)
+                    ->pruningRetention(7)
+                    // ->resource(\App\Filament\Resources\CustomJobMonitorResource::class)
             ])
             ->plugin(FilamentSpatieLaravelHealthPlugin::make())
             ->authMiddleware([

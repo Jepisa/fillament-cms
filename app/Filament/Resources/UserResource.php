@@ -10,12 +10,15 @@ use Filament\Forms;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
+use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Actions\BulkAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Collection;
 use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
 
 class UserResource extends Resource
@@ -102,6 +105,19 @@ class UserResource extends Resource
                     Tables\Actions\DeleteBulkAction::make(),
                     ExportBulkAction::make(),
                 ]),
+                // BulkAction::make('export-jobs')
+                //     ->label('Background Export')
+                //     ->icon('heroicon-o-cog')
+                //     ->action(function (Collection $records) {
+                //         UsersCsvExportJob::dispatch($records, 'users.csv');
+                //         Notification::make()
+                //             ->title('Export is ready')
+                //             ->body('Your export is ready. You can download it from the exports page.')
+                //             ->success()
+                //             ->seconds(5)
+                //             ->icon('heroicon-o-inbox-in')
+                //             ->send();
+                //     })
             ])
             ->defaultSort('name', 'desc');
     }
