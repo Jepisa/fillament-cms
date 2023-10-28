@@ -19,6 +19,7 @@ use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Althinect\FilamentSpatieRolesPermissions\FilamentSpatieRolesPermissionsPlugin;
 use ShuvroRoy\FilamentSpatieLaravelBackup\FilamentSpatieLaravelBackupPlugin;
+use ShuvroRoy\FilamentSpatieLaravelHealth\FilamentSpatieLaravelHealthPlugin;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -66,6 +67,7 @@ class AdminPanelProvider extends PanelProvider
                 // ->resource(\App\Filament\Resources\CustomMediaResource::class)
                 FilamentSpatieLaravelBackupPlugin::make()
             ])
+            ->plugin(FilamentSpatieLaravelHealthPlugin::make())
             ->authMiddleware([
                 Authenticate::class,
             ]);
