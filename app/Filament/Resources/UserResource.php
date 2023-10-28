@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\UserResource\Pages;
 use App\Filament\Resources\UserResource\RelationManagers;
+use App\Jobs\UsersCsvExportJob;
 use App\Models\User;
 use Faker\Provider\ar_EG\Text;
 use Filament\Forms;
@@ -105,19 +106,19 @@ class UserResource extends Resource
                     Tables\Actions\DeleteBulkAction::make(),
                     ExportBulkAction::make(),
                 ]),
-                // BulkAction::make('export-jobs')
-                //     ->label('Background Export')
-                //     ->icon('heroicon-o-cog')
-                //     ->action(function (Collection $records) {
-                //         UsersCsvExportJob::dispatch($records, 'users.csv');
-                //         Notification::make()
-                //             ->title('Export is ready')
-                //             ->body('Your export is ready. You can download it from the exports page.')
-                //             ->success()
-                //             ->seconds(5)
-                //             ->icon('heroicon-o-inbox-in')
-                //             ->send();
-                //     })
+                BulkAction::make('export-jobs')
+                    ->label('Background Export')
+                    ->icon('heroicon-o-cog')
+                    ->action(function (Collection $records) {
+                        UsersCsvExportJob::dispatch($records, 'users.csv');
+                        Notification::make()
+                            ->title('Export is ready')
+                            ->body('Your export is ready. You can download it from the exports page.')
+                            ->success()
+                            ->seconds(5)
+                            ->icon('heroicon-o-users')
+                            ->send();
+                    })
             ])
             ->defaultSort('name', 'desc');
     }
