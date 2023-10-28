@@ -18,6 +18,7 @@ use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Althinect\FilamentSpatieRolesPermissions\FilamentSpatieRolesPermissionsPlugin;
+use ShuvroRoy\FilamentSpatieLaravelBackup\FilamentSpatieLaravelBackupPlugin;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -61,8 +62,9 @@ class AdminPanelProvider extends PanelProvider
                 ->navigationIcon('heroicon-o-photo')
                 ->navigationGroup('Content')
                 ->navigationSort(3)
-                ->navigationCountBadge()
+                ->navigationCountBadge(),
                 // ->resource(\App\Filament\Resources\CustomMediaResource::class)
+                FilamentSpatieLaravelBackupPlugin::make()
             ])
             ->authMiddleware([
                 Authenticate::class,
