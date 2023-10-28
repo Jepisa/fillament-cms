@@ -54,6 +54,16 @@ class AdminPanelProvider extends PanelProvider
                 DispatchServingFilamentEvent::class,
             ])
             // ->plugin(FilamentSpatieRolesPermissionsPlugin::make())
+            ->plugins([
+                \Awcodes\Curator\CuratorPlugin::make()
+                ->label('Media')
+                ->pluralLabel('Media')
+                ->navigationIcon('heroicon-o-photo')
+                ->navigationGroup('Content')
+                ->navigationSort(3)
+                ->navigationCountBadge()
+                // ->resource(\App\Filament\Resources\CustomMediaResource::class)
+            ])
             ->authMiddleware([
                 Authenticate::class,
             ]);
